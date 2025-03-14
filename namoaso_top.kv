@@ -1,0 +1,46 @@
+<TopScreen>:
+    BoxLayout:
+        orientation: 'vertical'
+        padding: 30
+        spacing: 20
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: 'background_rainbow.jpg'
+
+        Widget:
+            size_hint_y: 0.125
+
+        Image:
+            id: main_label
+            source: "top_01.png"
+            allow_stretch: True
+            size_hint_x: 0.95
+            size_hint_y: 0.5
+
+        Widget:
+            size_hint_y: 0.125
+
+        BoxLayout:
+            spacing: 50
+            orientation: 'horizontal'
+            size_hint_y: 0.25
+
+            Button:
+                id: select_2
+                background_normal: 'play_2.png'
+                on_press: app.root.current = 'finger_game_2'
+
+            Button:
+                id: select_1_A
+                background_normal: 'play_1_A.png'
+                on_press: app.root.current = 'finger_game_1_A'
+
+            Button:
+                id: select_1_B
+                background_normal: 'play_1_B.png'
+
+            Button:
+                id: select_1_C
+                background_normal: 'play_1_C.png'

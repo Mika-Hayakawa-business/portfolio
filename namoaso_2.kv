@@ -1,0 +1,237 @@
+<FingerGameScreen_2>:
+    BoxLayout:
+        orientation: 'horizontal'
+        padding: 30, 10  # スマホ画面の端に合わせて適度な余白を設定
+        spacing: 20
+        canvas.before:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: 'background_pink.jpg'  # 背景画像を指定
+
+        BoxLayout:
+            orientation: 'vertical'
+            
+            Label:
+                id: status_label_1
+                font_name: 'font.ttf'
+                color: 0.4, 0.4, 0.4, 1
+                size_hint_y: 0.25
+                canvas.before:
+                    PushMatrix
+                    Scale:
+                        x: -1
+                        y: -1
+                        origin: self.center
+                canvas.after:
+                    PopMatrix
+            
+            Widget:
+                size_hint_y: 0.05
+                
+            BoxLayout:
+                size_hint_y: 0.15
+                
+                Widget:
+                    size_hint_x: 0.03
+                
+                Button:
+                    id: home
+                    size_hint: None, None
+                    size: 150, 150
+                    background_color: 0, 0, 0, 0  # 背景を透明に
+                    on_press: app.root.current = 'top'
+                    canvas.before:
+                        StencilPush
+                        Ellipse:
+                            size: self.size
+                            pos: self.pos
+                        StencilUse
+                        PushMatrix
+                        Scale:
+                            x: -1
+                            y: -1
+                            origin: self.center
+                    canvas:
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                            source: 'home.png'
+                    canvas.after:
+                        PopMatrix
+                        StencilUnUse
+                        StencilPop
+                
+                Widget:
+                    size_hint_x: 0.03
+    
+            Widget:
+                size_hint_y: 0.05
+            
+            Button:
+                id: next_button_2
+                background_normal: 'next_turn.png'
+                size_hint_y: 0.22  # 高さのサイズ比を固定
+                background_color: 1, 0.8, 0.9, 1
+                on_press: root.next_turn()
+                canvas.before:
+                    PushMatrix
+                canvas.after:
+                    PopMatrix
+            
+            Label:
+                id: timer_label_2
+                color: 0.4, 0.4, 0.4, 1
+                size_hint_y: 0.25
+                text: "15"
+                font_name: 'font.ttf'
+
+        BoxLayout:
+            orientation: 'vertical'    
+            
+            Button:
+                id: player1_a
+                background_normal: 'hand_1.png'
+                canvas.before:
+                    PushMatrix
+                    Scale:
+                        x: -1  # x軸方向に-1で左右反転
+                        y: -1  # y軸方向に-1で上下反転
+                        origin: self.center  # 反転の基準をボタン中央に設定
+                canvas.after:
+                    PopMatrix
+                on_press: root.on_image_tap_1('a')
+            
+            Widget:
+                size_hint_y: 0.4
+            
+            Button:
+                id: player2_A
+                background_normal: 'hand_1.png'
+                on_press: root.on_image_tap_2('A')
+        
+        BoxLayout:
+            orientation: 'vertical'     
+            
+            Button:
+                id: player1_b
+                background_normal: 'hand_1.png'
+                canvas.before:
+                    PushMatrix
+                    Scale:
+                        x: -1
+                        y: -1
+                        origin: self.center
+                canvas.after:
+                    PopMatrix
+                on_press: root.on_image_tap_1('b')
+            
+            Widget:
+                size_hint_y: 0.4
+            
+            Button:
+                id: player2_B
+                background_normal: 'hand_1.png'
+                on_press: root.on_image_tap_2('B')
+        
+        BoxLayout:
+            orientation: 'vertical'
+            
+            Button:
+                id: player1_c
+                background_normal: 'hand_1.png'
+                canvas.before:
+                    PushMatrix
+                    Scale:
+                        x: -1
+                        y: -1
+                        origin: self.center
+                canvas.after:
+                    PopMatrix
+                on_press: root.on_image_tap_1('c')
+            
+            Widget:
+                size_hint_y: 0.4
+            
+            Button:
+                id: player2_C
+                background_normal: 'hand_1.png'
+                on_press: root.on_image_tap_2('C')
+        
+        BoxLayout:
+            orientation: 'vertical'
+            
+            Label:
+                id: timer_label_1
+                text: "15"
+                color: 0.4, 0.4, 0.4, 1
+                size_hint_y: 0.25
+                font_name: 'font.ttf'
+                canvas.before:
+                    PushMatrix
+                    Scale:
+                        x: -1
+                        y: -1
+                        origin: self.center
+                canvas.after:
+                    PopMatrix
+            
+            Button:
+                id: next_button_1
+                background_normal: 'next_turn.png'
+                background_color: 1, 0.8, 0.9, 1
+                size_hint_y: 0.22
+                canvas.before:
+                    PushMatrix
+                    Scale:
+                        x: -1
+                        y: -1
+                        origin: self.center
+                canvas.after:
+                    PopMatrix
+                on_press: root.next_turn()
+            
+            Widget:
+                size_hint_y: 0.05
+            
+            BoxLayout:
+                size_hint_y: 0.15
+                
+                Widget:
+                    size_hint_x: 0.03
+                
+                Button:
+                    id: home
+                    size_hint: None, None
+                    size: 150, 150
+                    background_color: 0, 0, 0, 0  # 背景を透明に
+                    on_press: app.root.current = 'top'
+                    canvas.before:
+                        StencilPush
+                        Ellipse:
+                            size: self.size
+                            pos: self.pos
+                        StencilUse
+                    canvas:
+                        Color:
+                            rgba: 1, 1, 1, 1
+                        Rectangle:
+                            size: self.size
+                            pos: self.pos
+                            source: 'home.png'
+                    canvas.after:
+                        StencilUnUse
+                        StencilPop
+                
+                Widget:
+                    size_hint_x: 0.03
+            
+            Widget:
+                size_hint_y: 0.05 
+            
+            Label:
+                id: status_label_2
+                color: 0.4, 0.4, 0.4, 1
+                size_hint_y: 0.25
+                font_name: 'font.ttf'
+                padding: 30, 10, 30, 10
