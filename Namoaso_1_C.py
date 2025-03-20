@@ -5,20 +5,21 @@ from kivy.uix.screenmanager import Screen
 from kivy.core.window import Window
 import japanize_kivy
 import random
-from Namoaso_RL import NamoasoGame
-from Namoaso_RL import QLearning
-import time
+import torch
+import numpy as np
+from Namoaso_DL import NamoasoGame
+from Namoaso_DL import DQNAgent  # DQNを利用する
 
 
-class FingerGameScreen_1_A(Screen):
+class FingerGameScreen_1_C(Screen):
 
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)   # 関数やメソッドの引数として **kwargs を指定すると、任意の数のキーワード引数を辞書として受け取ることができる        
-        Builder.load_file("namoaso_1_A.kv")  # kvファイルの正確な名前を指定
+        super().__init__(**kwargs)   
+        Builder.load_file("namoaso_1_A.kv")  
         self.game = NamoasoGame()
-        self.qlearning = QLearning(action_size=9)
-        self.qlearning.load_q_table()    # Qテーブルをロード
-
+        self.dqn = DQNAgent(state_size=6, action_size=9)  # DQNモデルを読み込む
+        self.dqn.load_model("dqn_namoaso.pth")  # 学習済みモデルのロード
+        
     
     def on_enter(self):
         '''トップ画面の「1人プレイ 易しい」をタップしたときに呼び出される初期設定の関数'''
@@ -206,7 +207,7 @@ class FingerGameScreen_1_A(Screen):
         """AIのターン"""
         self.turn_list = {"turn": self.turn}
         state = self.hand_1 | self.hand_2 | self.turn_list
-        action = self.qlearning.choose_action(state)  # AIが行動を選択
+        action = self.dqn.choose_action(state)  # AIが行動を選択
         self.update_hand_display()
 
         # AIの行動を手のリストに変換（例: "a" → "A"）
@@ -228,7 +229,7 @@ class FingerGameScreen_1_A(Screen):
         # 次のターンに進む
         Clock.schedule_once(lambda dt: self.next_turn(), 1.5)
         
-        
+
         
     def next_turn(self):
         # 必要なチェックと引き分けの判定は同じです
